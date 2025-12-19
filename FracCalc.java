@@ -116,6 +116,10 @@ public class FracCalc {
       int den1Int = Integer.parseInt(frac1Den);
       int den2Int = Integer.parseInt(frac2Den);
       userInput.close();
+      if(den1Int == 0 || den2Int == 0)
+      {
+         return "Cannot divide by zero";
+      }
 
       //call each method based on what operator it is
       if(operator.equals("+"))
@@ -132,7 +136,14 @@ public class FracCalc {
       }
       else
       {
-         return divideFrac(whole1Int, num1Int, den1Int, whole2Int, num2Int, den2Int);
+         if(whole2Int == 0 && num2Int == 0)
+         {
+            return "Cannot divide by zero";
+         }
+         else
+         {
+            return divideFrac(whole1Int, num1Int, den1Int, whole2Int, num2Int, den2Int);
+         }
       }   
    }
 
@@ -244,7 +255,7 @@ public static String addFrac(int whole1Int, int num1Int, int den1Int, int whole2
    int whole = totalNum / totalDen;
    int remainder = Math.abs(totalNum % totalDen);
    //method call to do the math and format properly
-   return doMath(totalNum, totalDen, whole, remainder);
+   return doMath(totalNum, totalDen, whole, remainder, den1Int, den2Int, whole2Int) + "";
 }
 
 //method for subtracting the fractions together, with integer parameters that include basic fraction parts
@@ -282,7 +293,7 @@ public static String subtractFrac(int whole1Int, int num1Int, int den1Int, int w
    int whole = totalNum / totalDen;
    int remainder = Math.abs(totalNum % totalDen);
    //method call to do the math and format properly
-   return doMath(totalNum, totalDen, whole, remainder);
+   return doMath(totalNum, totalDen, whole, remainder, den1Int, den2Int, whole2Int) + "";
 }
 
 //method for multiplying the fractions together, with integer parameters that include basic fraction parts
@@ -320,7 +331,7 @@ public static String multFrac(int whole1Int, int num1Int, int den1Int, int whole
    int whole = totalNum / totalDen;
    int remainder = Math.abs(totalNum % totalDen);
    //method call to do the math and format properly
-   return doMath(totalNum, totalDen, whole, remainder) + "";
+   return doMath(totalNum, totalDen, whole, remainder, den1Int, den2Int, whole2Int) + "";
 }
 
 //method for dividing the fractions together, with integer parameters that include basic fraction parts
@@ -361,12 +372,12 @@ public static String divideFrac(int whole1Int, int num1Int, int den1Int, int who
    int whole = totalNum / totalDen;
    int remainder = Math.abs(totalNum % totalDen);
    //method call to do the math and format properly
-   return doMath(totalNum, totalDen, whole, remainder) + "";
+   return doMath(totalNum, totalDen, whole, remainder, den1Int, den2Int, whole2Int) + "";
 }
 
 //this method does some of the math and formats things properly, taking only fully simplified
 //and answer-worthy integer parameters
-public static String doMath(int totalNum, int totalDen, int whole, int remainder)
+public static String doMath(int totalNum, int totalDen, int whole, int remainder, int den1Int, int den2Int, int whole2Int)
 {
    //checks if the denominator can be turned to 1 and return a whole number.
    if(totalNum % totalDen == 0)
@@ -435,7 +446,7 @@ public static int calculateGCF(int totalNum, int gcfDen)
    public static String provideHelp() {
      
       String help = "This is a fraction calculator that calculates arithmetic operations!\n";
-      help += "Input equation as <whole>_<numerator>/<denominator> <operator> <numerator2>/<denominator2>";
+      help += "Input equation as <whole>_<numerator>/<denominator> <operator> <whole2>_<numerator2>/<denominator2>";
       
       return help;
    }
