@@ -116,6 +116,7 @@ public class FracCalc {
       int den1Int = Integer.parseInt(frac1Den);
       int den2Int = Integer.parseInt(frac2Den);
       userInput.close();
+      //checks if user is trying to create a fraction with 0 as denominator
       if(den1Int == 0 || den2Int == 0)
       {
          return "Cannot divide by zero";
@@ -136,6 +137,7 @@ public class FracCalc {
       }
       else
       {
+         //checks if user is trying to divide by 0
          if(whole2Int == 0 && num2Int == 0)
          {
             return "Cannot divide by zero";
